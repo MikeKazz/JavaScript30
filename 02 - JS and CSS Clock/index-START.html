@@ -49,7 +49,7 @@
         inset 0 0 10px black,
         0 0 10px rgba(0,0,0,0.2);
     }
-
+    .min-hand {scale: 0.7;}
     .clock-face {
       position: relative;
       width: 100%;
@@ -63,11 +63,36 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05;
+      transition-timing-function:cubic-bezier(0.55, 0.055, 0.675, 0.19);
     }
 
   </style>
 
   <script>
+    let count = 0
+function getDates() {
+    const currentTime = new Date();
+
+    const minute = currentTime.getMinutes();
+    const minuteDeg = ((minute / 60) * 360) + 90;
+    document.querySelector(".min-hand").style.transform = `rotate(${minuteDeg}deg)`
+
+
+    const second = currentTime.getSeconds();
+    const secondDeg = ((second / 60) * 360) + 90;
+    document.querySelector(".second-hand").style.transform = `rotate(${secondDeg}deg)`
+
+    const hour = currentTime.getHours();
+    const hourDeg = (((hour - 12) / 12) * 360) + 90; 
+    document.querySelector(".hour-hand").style.transform = `rotate(${hourDeg}deg)`
+
+
+}
+
+let myTimer = setInterval(getDates, 1000);
 
 
   </script>
